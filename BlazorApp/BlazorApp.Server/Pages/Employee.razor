@@ -1,0 +1,140 @@
+﻿@page "/employee"
+@using BlazorApp.Data
+@using BlazorApp.Data.Models
+@inject IEmployeeService employeeService
+<div class="row">
+
+    <div class="col-md-12">
+        <h5 class="text-center"> Employees</h5>
+        <div id="exampleModalLive" class="modal fade @(AnyAlert?"show":"")" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" style="@(AnyAlert? "display: block; padding-right: 17px;": "display:none")">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Alert!</h5>
+                        <button type="button" class="close" @onclick="DismissAlert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @Message
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @onclick="DismissAlert">OK</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (!employees.Any())
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th width="10%">ID</th>
+                        <th width="20%">Name</th>
+                        <th width="20%">Father Name</th>
+                        <th width="15%">Mobile No</th>
+                        <th width="20%">E-mail</th>
+                        <th width="15%">Action</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @if (AddNewOptionOpen)
+                    {
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input @bind-value="employeeEntry.Name" class="form-control input-sm" type="text" />
+                            </td>
+                            <td>
+                                <input @bind-value="employeeEntry.FatherName" class="form-control input-sm" type="text" />
+                            </td>
+                            <td>
+                                <input @bind-value="employeeEntry.PhoneNo" class="form-control input-sm" type="text" />
+                            </td>
+                            <td>
+                                <input @bind-value="employeeEntry.Email" class="form-control input-sm" type="text" />
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-primary" @onclick="SaveNewEntry">Save</button>
+                                &nbsp;
+                                <button class="btn btn-sm btn-danger pull-right" @onclick="UpdateAddOption">Cancel</button>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-right"><button class="btn btn-primary btn-sm" @onclick="UpdateAddOption">Add</button></td>
+                        </tr>
+                    }
+
+                    @foreach (var employee in employees)
+                    {
+                        <tr>
+                            <td>@employee.ID</td>
+                            <td>@employee.Name</td>
+                            <td>@employee.FatherName</td>
+                            <td>@employee.PhoneNo</td>
+                            <td>@employee.Email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>
+
+@code {
+    public BlazorApp.Data.Models.Employee employeeEntry = new BlazorApp.Data.Models.Employee();
+    public List<BlazorApp.Data.Models.Employee> employees = new List<BlazorApp.Data.Models.Employee>();
+    public bool AddNewOptionOpen = false;
+    public bool AnyAlert = false;
+    public string Message = string.Empty;
+    public string AlertClass = "";
+    protected override async Task OnInitializedAsync()
+    {
+        
+        employees = await employeeService.GetEmployees();
+
+    }
+    public void UpdateAddOption()
+    {
+        AddNewOptionOpen = !AddNewOptionOpen;
+    }
+    public async Task SaveNewEntry()
+    {
+        employeeEntry.ID = employees[employees.Count() - 1].ID + 1;
+        await employeeService.InsertEmployee(employeeEntry);
+        employees.Add(employeeEntry);
+        employeeEntry = new BlazorApp.Data.Models.Employee();
+        Alert("Save Successfully");
+    }
+
+
+
+    public void Alert(string message)
+    {
+        Message = message;
+        AnyAlert = true;
+
+
+
+
+    }
+    public void DismissAlert()
+    {
+        AnyAlert = false;
+    }
+
+}
+
+

@@ -1,0 +1,8 @@
+D:\Projects\Blazor-Server-Sample\BlazorApp\BlazorApp.Data\bin\Debug\netstandard2.0\BlazorApp.Data.deps.json
+D:\Projects\Blazor-Server-Sample\BlazorApp\BlazorApp.Data\bin\Debug\netstandard2.0\BlazorApp.Data.dll
+D:\Projects\Blazor-Server-Sample\BlazorApp\BlazorApp.Data\obj\Debug\netstandard2.0\BlazorApp.Data.AssemblyInfoInputs.cache
+D:\Projects\Blazor-Server-Sample\BlazorApp\BlazorApp.Data\obj\Debug\netstandard2.0\BlazorApp.Data.AssemblyInfo.cs
+D:\Projects\Blazor-Server-Sample\BlazorApp\BlazorApp.Data\bin\Debug\netstandard2.0\BlazorApp.Data.pdb
+D:\Projects\Blazor-Server-Sample\BlazorApp\BlazorApp.Data\obj\Debug\netstandard2.0\BlazorApp.Data.csproj.CoreCompileInputs.cache
+D:\Projects\Blazor-Server-Sample\BlazorApp\BlazorApp.Data\obj\Debug\netstandard2.0\BlazorApp.Data.dll
+D:\Projects\Blazor-Server-Sample\BlazorApp\BlazorApp.Data\obj\Debug\netstandard2.0\BlazorApp.Data.pdb
